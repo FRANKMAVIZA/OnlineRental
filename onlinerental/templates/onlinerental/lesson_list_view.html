@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} {{cities.name}} {% endblock %}
+
+{% block image_block %}
+<header class="info-header">
+  <div id="page-intro" class="container-fluid d-flex align-items-center justify-content-center ">
+    <div class="row d-flex justify-content-center text-center">
+      <div class="col-md-10 text-white">
+        <!-- heading -->
+        <h2 class="display-4 font-weight-bold  p-5 " style="color:#ff5722;" > {{cities.name}} </h2>
+        <div class="row d-flex justify-content-center text-center">
+          <ul class="breadcrumb">
+            <li><a href="{% url 'index' %}">Home</a></li>
+            <li class="disabled-text" >{{cities.name}}</li>
+          </ul>
+        </div>
+
+        <!-- divider -->
+        <hr style="color:#ff5722;">
+
+        <!-- description -->
+        <h4 class="white-text my-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                  Deleniti
+                  consequuntur.</h4>
+  </div>
+    </div>
+  </div>
+</header>
+{% endblock %}
+
+
+{% block content %}
+<section id="best-features" class="text-center">
+              <h2 class="mb-5 mt-5 font-weight-bold" style="color:#ff5722;">Dive Deeper</h2>
+              <!-- class row for description-->
+              <div class="row d-flex justify-content-center mb-4">
+                <!-- class column -->
+                <div class="col-md-8 mb-5">
+                  <p class="grey-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi voluptate
+                                    hic
+                                    provident nulla repellat
+                                    facere esse molestiae ipsa labore porro minima quam quaerat rem, natus repudiandae debitis
+                                    est
+                                    sit pariatur.</p>
+                </div>
+              </div>
+              <!-- class row2 for cards -->
+              <div class="row d-flex justify-content-center mb-3">
+                {% for lesson in cities.apartments.all %}
+                <div class="col-sm-4 mb-4">
+                  <div class="card box-shadow-hover">
+                    <div class="card-body">
+                      <h5 class="card-title">Apartment-{{lesson.position}}: {{lesson.name}}</h5>
+                      <p class="card-text">{{lesson.desc}}.</p>
+                        <img src="{{lesson.pic1.url}}" alt="no image found" width="200" height="200"><br>
+                        <img src="{{lesson.pic2.url}}" alt="no image found" width="200" height="200"><br>
+                        <img src="{{lesson.pic3.url}}" alt="no image found" width="200" height="200"><br>
+                        <img src="{{lesson.pic4.url}}" alt="no image found" width="200" height="200"><br><br>
+                       <a href="{% url 'onlinerental:lesson_detail' slug=lesson.slug cities=cities.slug cities=lesson.Cities.slug %}" >
+                      <button type="button" class="button-les"><span>apartment detail</span></button>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
+        <div class="row d-flex justify-content-center mb-3">
+          {% if user.userprofileinfo.user_type == 'teacher' or user.is_superuser %}
+
+          {% endif %}
+        </div>
+
+</section>
+
+
+
+
+
+
+{%endblock%}
